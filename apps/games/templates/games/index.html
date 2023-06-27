@@ -103,30 +103,16 @@
 
   <section>
     <h2>Новые поступления</h2>
-    <div class="game">
-      <img src="https://s3.ap-southeast-1.amazonaws.com/cdn.vcgamers.com/news/wp-content/uploads/2023/01/tanggal-rilis-GTA-6.jpg" alt="">
-      <h3>GTA VI</h3>
-      <p>Описание игры 1.</p>
-      <a href="#">Подробнее</a>
-    </div>
-    <div class="game">
-      <img src="https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg?t=1671485009" alt="">
-      <h3>Red dead redemption 2</h3>
-      <p>Описание игры 2.</p>
-      <a href="#">Подробнее</a>
-    </div>
-    <div class="game">
-      <img src="https://cdn.akamai.steamstatic.com/steam/apps/2208920/capsule_616x353.jpg?t=1671135934" alt="">
-      <h3>Assassin's creed valhalla</h3>
-      <p>Описание игры 3.</p>
-      <a href="#">Подробнее</a>
-    </div>
-    <div class="game">
-      <img src="https://image.fresherslive.com/latestnews/2023/05/is-nfs-heat-crossplay-is-need-for-speed-heat-cross-platform-64744dda0f04558222824-900.webp" alt="">
-      <h3>NFS Heat</h3>
-      <p>Описание игры 4.</p>
-      <a href="#">Подробнее</a>
-    </div>
+    {% for game in games %}
+    <a href="{{ game.pk }}">
+      <div class="game">
+        <img src="https://s3.ap-southeast-1.amazonaws.com/cdn.vcgamers.com/news/wp-content/uploads/2023/01/tanggal-rilis-GTA-6.jpg" alt="">
+        <h3>{{ game.name }}</h3>
+        <p>{{ game.company }}</p>
+        <a href="#">Подробнее</a>
+      </div>
+    </a>
+    {% endfor %}
   </section>
 
   <footer>
