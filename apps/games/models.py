@@ -14,6 +14,14 @@ class Company(models.Model):
         verbose_name='дата создания'
     )
 
+    class Meta:
+        ordering = ('-datetime_created',)
+        verbose_name = 'компания'
+        verbose_name_plural = 'компании'
+
+    def __str__(self) -> str:
+        return self.name    
+
 
 class Genre(models.Model):
     """Game genre."""
@@ -23,6 +31,14 @@ class Genre(models.Model):
         max_length=130,
         unique=True
     )
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'жанр'
+        verbose_name_plural = 'жанры'
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Game(models.Model):
@@ -43,7 +59,7 @@ class Game(models.Model):
     )
     company = models.ForeignKey(
         verbose_name='компания',
-        to=Comment,
+        to=Company,
         on_delete=models.CASCADE,
         related_name='company_games'
     )
@@ -52,6 +68,14 @@ class Game(models.Model):
         to=Genre,
         related_name='games'
     )
+
+    class Meta:
+        ordering = ('price', 'name')
+        verbose_name = 'игра'
+        verbose_name_plural = 'игры'
+
+    def __str__(self) -> str:
+        return f'{self.company} | {self.name} | {self.price}$'
 
 
 class Comment(models.Model):
@@ -86,3 +110,12 @@ class Comment(models.Model):
         null=True,
         blank=True
     )
+
+    class Meta:
+        ordering = ('-id',)
+        verbose_name = 'комментарий'
+        verbose_name_plural = 'комментарии'
+
+    def __str__(self) -> str:
+        rate_str = '★' * self.rate 
+        return f'{self.user.username} оценка:   {rate_str}'
