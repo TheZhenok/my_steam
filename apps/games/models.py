@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -79,6 +81,7 @@ class Game(models.Model):
 
 
 class Comment(models.Model):
+
     """Comment for games and comp."""
     
     user = models.ForeignKey(
@@ -117,5 +120,98 @@ class Comment(models.Model):
         verbose_name_plural = 'комментарии'
 
     def __str__(self) -> str:
+
         rate_str = '★' * self.rate 
         return f'{self.user.username} оценка:   {rate_str}'
+
+    
+class Order(models.Model):
+
+    CARD='0'
+    CASH='1'
+    METHOD=(
+        (CARD,'карта'),
+        (CASH,'наличкой при доставке')
+    )
+
+    user = models.ForeignKey(
+        verbose_name='юзер',
+        to=User, 
+        on_delete=models.CASCADE,
+        related_name='order')
+    game = models.ForeignKey(
+        verbose_name='игра',
+        to=Game, 
+        on_delete=models.CASCADE,
+        related_name='order')
+    datetime_buy = models.DateTimeField(
+        verbose_name='время совершения покупки',
+        auto_now_add=True
+    )
+    method = models.CharField(
+        verbose_name='метод оплаты',
+        max_length=250,
+        choices=METHOD,
+        default=CARD
+    )
+    money = models.DecimalField(
+        verbose_name='потрачено',
+        decimal_places=2,
+        max_digits=12
+    )
+    
+    class Meta:
+        verbose_name = 'покупка'
+        verbose_name_plural = 'покупки'
+
+    def __str__(self) -> str:
+        return f'{self.user} : {self.game} : {self.method}'
+
+
+class WishList(models.Model):
+    user = models.OneToOneField(
+        verbose_name='властелин',
+        to=User, 
+        on_delete=models.CASCADE,
+        related_name='wishlist')
+    games = models.ManyToManyField(
+        verbose_name='игра',
+        to=Game,
+        related_name='wishlists')
+
+    class Meta:
+        verbose_name = 'избранный'
+        verbose_name_plural = 'избранные'
+
+    def __str__(self) -> str:
+        return f'{self.user} ||| {self.games.count()} games'
+
+
+class InviteCard(models.Model):
+
+    code = models.CharField(
+        verbose_name='код', 
+        max_length=50, 
+        unique=True
+    )
+    owner = models.ForeignKey(
+        to=User, 
+        verbose_name='владелец', 
+        on_delete=models.CASCADE
+    )
+    expiration_date = models.DateField(
+        verbose_name='дата истечения',
+        default=datetime.datetime.today() + datetime.timedelta(days=30)
+    )
+    counter = models.PositiveIntegerField(
+        verbose_name='счётчик', 
+        default=0
+    )
+
+    class Meta:
+        ordering = ('-counter',)
+        verbose_name = 'пригласительная карта'
+        verbose_name_plural = 'пригласительные карты'
+
+    def str(self) -> str:
+        return f"Код: {self.code}| Использовано: {self.is_used}"
