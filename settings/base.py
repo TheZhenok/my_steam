@@ -102,6 +102,9 @@ USE_TZ = True
 
 # Путь до статичных файлов
 STATIC_URL = 'static/'
+STATIC_ROOT = 'static/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = 'media/'
 
 # Шайтан штука
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
