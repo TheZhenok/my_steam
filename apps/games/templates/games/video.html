@@ -75,17 +75,18 @@
 	<!-- header section end -->
   <!-- video section start -->
   <main>
+    {% for game in games %}
     <div class="card">
       <div class="content">
         <div class="main__inforation">
           <div class="image"></div>
           <div class="info">
-            <div class="price">99.9$</div>
-            <div class="name">Titanfall</div>
+            <div class="price">{{ game.price }}$</div>
+            <div class="name">{{ game.name }}</div>
             <div class="genres">
-              <div class="genre">Шутер</div>
-              <div class="genre">Многопользовательская</div>
-              <div class="genre">Один игрок</div>
+              {% for g in game.genres.all %}
+              <div class="genre">{{ g.name }}</div>
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -94,6 +95,7 @@
         </div>
       </div>
     </div>
+    {% endfor %}
   </main>
   <!-- video section end -->
   <!-- footer section start -->

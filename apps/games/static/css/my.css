@@ -4,10 +4,11 @@ main {
     align-items: center;
     margin-top: 30px;
     gap: 15px;
+    font-family: 'Franklin Gothic ';
 }
 .card {
-    width: 50%;
-    height: 270px;
+    width: 70%;
+    min-height: 270px;
     box-shadow: 0 5px 10px black;
     padding: 10px;
     display: flex;
@@ -24,10 +25,11 @@ main {
 .main__inforation {
     display: flex;
     gap: 15px;
+    align-items: center;
 }
 .image {
-    height: 160px;
-    width: 160px;
+    height: 200px;
+    width: 200px;
     background: linear-gradient(
         90deg,
         gray,
@@ -40,6 +42,7 @@ main {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    width: 70%;
 }
 .price {
     font-weight: 100;
@@ -48,13 +51,14 @@ main {
 }
 .name {
     font-weight: bold;
-    font-size: 42px;
+    font-size: 36px;
     letter-spacing: 3px;
 }
 .genres {
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
+    width: 90%;
 }
 .genre {
     padding: 5px;
@@ -63,6 +67,7 @@ main {
     background-color: #02D1FF;
     border-radius: 20px;
     font-size: 12px;
+    color: white;
 }
 .rate {
     color: green;
