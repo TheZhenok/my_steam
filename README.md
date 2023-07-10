@@ -45,3 +45,22 @@
 >> text (MABY NULL)
 
 >> rate
+
+# WishList
+>> user
+
+>> games
+
+# Order
+>> user
+
+>> game
+
+>> datetime_buy
+
+>> method (наличка или картой например)
+
+>> money
+
+# Invite card
+>> самостоятельно

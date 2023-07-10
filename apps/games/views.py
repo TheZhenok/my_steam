@@ -10,12 +10,20 @@ from .models import Game
 
 def index(request: HttpRequest) -> HttpResponse:
     template_name: str = 'games/index.html'
-    qs: QuerySet[Game] = Game.objects.all()
+    return render(
+        request=request,
+        template_name=template_name,
+        context={}
+    )
+
+def games(request: HttpRequest) -> HttpResponse:
+    template_name: str = 'games/video.html'
+    queryset: QuerySet[Game] = Game.objects.all()
     return render(
         request=request,
         template_name=template_name,
         context={
-            'games': qs
+            'games': queryset
         }
     )
 
