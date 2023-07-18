@@ -6,6 +6,9 @@ main {
     gap: 15px;
     font-family: 'Franklin Gothic ';
 }
+a.gm {
+    width: 80%;
+}
 .card {
     width: 70%;
     min-height: 270px;
@@ -72,4 +75,63 @@ main {
 .rate {
     color: green;
     font-size: 36px;
+}
+
+.aa {
+    width: 70%;
+    height: 270px;
+    box-shadow: 0 5px 10px black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+form.card {
+    width: 80%;
+}
+
+.form__content {
+    width: 83%;
+    height: 92%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.inputs {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    width: 100%;
+}
+.main__info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 25px;
+}
+.main__info input {
+    width: 80%;
+    height: 30px;
+}
+.sbt {
+    width: 160px;
+    height: 87px;
+    background-color: #2CCC29;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px black;
+    border: none;
+    font-size: 34px;
 }

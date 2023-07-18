@@ -75,26 +75,55 @@
 	<!-- header section end -->
   <!-- video section start -->
   <main>
-    {% for game in games %}
-    <div class="card">
-      <div class="content">
-        <div class="main__inforation">
-          <div class="image"></div>
-          <div class="info">
-            <div class="price">{{ game.price }}$</div>
-            <div class="name">{{ game.name }}</div>
-            <div class="genres">
-              {% for g in game.genres.all %}
-              <div class="genre">{{ g.name }}</div>
-              {% endfor %}
+    <form action="/games/list/" class="card" method="post">
+      {% csrf_token %}
+      <div class="form__content">
+        <h1 class="title">Create new game!</h1>
+        <div class="inputs">
+          <div class="main__info">
+            <input type="text" placeholder="Name" name="name" id="name">
+            <input type="text" placeholder="Price" name="price" id="price">
+            <input type="date" placeholder="Datetime" name="datetime_created" id="datetime_created">
+            <input type="text" placeholder="Company" name="company" id="company">
+          </div>
+          <div class="genres__chouse">
+            {% for g in genres %}
+            <div class="genre__item">
+              <input type="checkbox" name="genre_{{ g.id }}" id="{{ g.name }}">
+              <label for="{{ g.name }}">{{ g.name }}</label>
             </div>
+            {% endfor %}
+
+          </div>
+          <div class="btn__and__errors">
+            <div class="errors"></div>
+            <input type="submit" value="Create" class="sbt">
           </div>
         </div>
-        <div class="rate">
-          9.2
+      </div>
+    </form>
+    {% for game in games %}
+    <a class="gm" href="/games/{{ game.pk }}">
+      <div class="card">
+        <div class="content">
+          <div class="main__inforation">
+            <div class="image"></div>
+            <div class="info">
+              <div class="price">{{ game.price }}$</div>
+              <div class="name">{{ game.name }}</div>
+              <div class="genres">
+                {% for g in game.genres.all %}
+                <div class="genre">{{ g.name }}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="rate">
+            9.2
+          </div>
         </div>
       </div>
-    </div>
+    </a>
     {% endfor %}
   </main>
   <!-- video section end -->
