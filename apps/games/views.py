@@ -1,3 +1,6 @@
+# Python
+import uuid
+
 # Django
 from django.shortcuts import render
 from django.http.request import HttpRequest
@@ -5,6 +8,7 @@ from django.http.response import HttpResponse
 from django.db.models.query import QuerySet
 from django.db.models.functions import Lower
 from django.views.generic import View
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 # Local
 from .models import Game, Genre, Company
@@ -40,10 +44,11 @@ class GameListView(View):
         data: dict = request.POST
         files: dict = request.FILES
 
-        image = None
+        image: InMemoryUploadedFile = None
         if files != {}:
-            image = files.get('main_imgor')[0]
-        
+            image = files.get('main_imgor')
+            image.name = f'{uuid.uuid1()}.png'
+
         try:
             company: Company = Company.objects.annotate(
                 lower_igor=Lower('name')
