@@ -70,6 +70,11 @@ class Game(models.Model):
         to=Genre,
         related_name='games'
     )
+    main_imgor = models.ImageField(
+        verbose_name='изображение',
+        upload_to='games/',
+        default='games/unknown.png'
+    )
 
     class Meta:
         ordering = ('price', 'name')

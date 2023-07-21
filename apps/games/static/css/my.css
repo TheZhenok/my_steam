@@ -135,3 +135,8 @@ form.card {
     border: none;
     font-size: 34px;
 }
+
+.genres__chouse {
+    height: 170px;
+    overflow-y: scroll;
+}
