@@ -26,7 +26,8 @@ class GameAdmin(admin.ModelAdmin):
                 'fields':[
                     'name',
                     'price',
-                    'genres'
+                    'genres',
+                    'main_imgor'
                 ]
             }
         ),

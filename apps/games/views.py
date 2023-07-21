@@ -3,10 +3,11 @@ from django.shortcuts import render
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.db.models.query import QuerySet
+from django.db.models.functions import Lower
 from django.views.generic import View
 
 # Local
-from .models import Game, Genre
+from .models import Game, Genre, Company
 
 
 class MainView(View):
@@ -24,7 +25,7 @@ class GameListView(View):
 
     def get(self, request: HttpRequest) -> HttpResponse:
         template_name: str = 'games/video.html'
-        queryset: QuerySet[Game] = Game.objects.all()
+        queryset: QuerySet[Game] = Game.objects.all().order_by('-id')
         genres: QuerySet[Genre] = Genre.objects.all()
         return render(
             request=request,
@@ -36,7 +37,41 @@ class GameListView(View):
         )
     
     def post(self, request: HttpRequest) -> HttpResponse:
-        breakpoint()
+        data: dict = request.POST
+        files: dict = request.FILES
+
+        image = None
+        if files != {}:
+            image = files.get('main_imgor')[0]
+        
+        try:
+            company: Company = Company.objects.annotate(
+                lower_igor=Lower('name')
+            ).get(
+                lower_igor=str(data.get('company')).lower()
+            )
+        except Company.DoesNotExist:
+            return HttpResponse(
+                f"Компании {data.get('company')} не существует"
+            )
+        
+        game: Game = Game.objects.create(
+            name=data.get('name'),
+            price=float(data.get('price')),
+            datetime_created=data.get('datetime_created'),
+            company=company,
+            main_imgor=image
+        )
+
+        key: str
+        for key in data:
+            if 'genre_' in key:
+                genre: Genre = Genre.objects.get(
+                    id=int(key.strip('genre_'))
+                )
+                game.genres.add(genre)
+
+        game.save()
         return HttpResponse("Hello")
 
 class GameView(View):
